@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bridal & Facial Packages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff6f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: #195d71;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 5px solid #217377;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .package {
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-bottom: 30px;
+      transition: transform 0.3s ease;
+    }
+
+    .package:hover {
+      transform: scale(1.02);
+    }
+
+    .package h2 {
+      color: #4d8c17;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      color: #8c2b5c;
+      margin-top: 15px;
+    }
+
+    .book-btn {
+      background: #a82e6b;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .book-btn:hover {
+      background: #bf61f6;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Bridal & Facial Packages</h1>
+  <p>Be the most beautiful version of you 💖</p>
+</header>
+
+<div class="container">
+
+  <div class="package">
+    <h2>👰 Bridal Package</h2>
+    <ul>
+      <li>Full Bridal Makeup</li>
+      <li>Bridal Hair Styling</li>
+      <li>Mehendi (Hands & Feet)</li>
+      <li>Bridal Saree Draping</li>
+      <li>Jewellery & Accessory Setup</li>
+      <li>Trial Session Included</li>
+    </ul>
+    <p class="price">Rs. 25,000/-</p>
+
+    <form action="http://localhost:8080/book" method="POST">
+      <input type="hidden" name="package" value="Bridal Package">
+      <input type="text" name="name" placeholder="Your Name" required><br>
+      <input type="text" name="phone" placeholder="Phone Number" required><br>
+      <input type="date" name="date" required><br>
+      <input type="time" name="time" required><br>
+      <button type="submit" class="book-btn">Book Now</button>
+    </form>
+
+  </div>
+
+  <div class="package">
+    <h2>🌸 Facial Package</h2>
+    <ul>
+      <li>Deep Cleansing Facial</li>
+      <li>Gold Facial Treatment</li>
+      <li>Face Massage & Scrub</li>
+      <li>Mask & Toning</li>
+      <li>Blackhead Removal</li>
+      <li>Complimentary Eyebrow Threading</li>
+    </ul>
+    <p class="price">Rs. 3,500/-</p>
+
+    <form action="http://localhost:8080/book" method="POST">
+      <input type="hidden" name="package" value="Facial Package">
+      <input type="text" name="name" placeholder="Your Name" required><br>
+      <input type="text" name="phone" placeholder="Phone Number" required><br>
+      <input type="date" name="date" required><br>
+      <input type="time" name="time" required><br>
+      <button type="submit" class="book-btn">Book Now</button>
+    </form>
+  </div>
+
+
+
+</div>
+<div style="text-align: center; margin-bottom: 40px;">
+  <button onclick="location.href='index.html'" style="background: #217377; color: white; padding: 12px 24px; font-size: 16px; border: none; border-radius: 25px; cursor: pointer;">
+    🔙 Back to Home
+  </button>
+
+  <button onclick="location.href='vv.html'" style="background: #4d8c17; color: white; padding: 12px 24px; font-size: 16px; border: none; border-radius: 25px; margin-left: 10px; cursor: pointer;">
+    💇 View All Services
+  </button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Diwya Salon - Booking</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fdf1f7;
+    }
+    header, footer {
+      background-color: #c71585;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 22px;
+    }
+    h1 {
+      text-align: center;
+      color: #c71585;
+      margin: 20px 0 10px;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .image-card {
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      width: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .image-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(199, 21, 133, 0.5);
+    }
+    .image-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .image-info {
+      padding: 10px;
+      font-weight: bold;
+      color: #c71585;
+    }
+    #previewContainer {
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    #previewContainer ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    #previewContainer li {
+      margin-bottom: 6px;
+      color: #c71585;
+    }
+    #bookingTotal {
+      color: #c71585;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+    form {
+      margin-top: 20px;
+      text-align: left;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #c71585;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #a0136b;
+    }
+    .month-container, .dates-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .month {
+      background-color: #ffffff;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .month:hover, .month.active {
+      background-color: #007bff;
+      color: white;
+    }
+    .date-box {
+      width: 50px;
+      height: 50px;
+      background-color: white;
+      border: 2px solid #007bff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .date-box:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    .booked {
+      background-color: #ff4d4d;
+      color: white;
+      cursor: not-allowed;
+    }
+    .selected {
+      background-color: #28a745 !important;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<header>Diwya Salon - Service Selection & Booking</header>
+
+<h1>💇 Services Gallery</h1>
+<div class="gallery" id="serviceGallery">
+ 
+  <div class="image-card" data-service="Hair color 1 - Rs.1500">
+    <img src="hair colour1.jpg.jpg" alt="Hair color" />
+    <div class="image-info">Hair Colour<br>Rs. 1500</div>
+    <span>#1</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Color 2 - Rs.1200">
+    <img src="hair colour2.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Color<br>Rs. 1200</div>
+    <span>#2</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Color 3 - Rs.2500">
+    <img src="hair colour3.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Color<br>Rs. 2500</div>
+    <span>#3</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 4 - Rs.2500">
+    <img src="hair cut1.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 2500</div>
+    <span>#4</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Cut 5 - Rs.1800">
+    <img src="hair cut 2.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1800</div>
+    <span>#5</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 6 - Rs.800">
+    <img src="hair cutd.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 800</div>
+    <span>#6</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 7 - Rs.1200">
+    <img src="hair.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1200</div>
+    <span>#7</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 8 - Rs.1700">
+    <img src="Haircut.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1700</div>
+    <span>#8</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 9 - Rs.1200">
+    <img src="6.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1200</div>
+    <span>#9</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Color 10 - Rs.1500">
+    <img src="co1.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Colour<br>Rs. 1500</div>
+    <span>#10</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Color 11 - Rs.1800">
+    <img src="col2.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Colour<br>Rs. 1800</div>
+    <span>#11</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 12 - Rs.2000">
+    <img src="cut1,jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 2000</div>
+    <span>#12</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 13 - Rs.500">
+    <img src="cut2.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 500</div>
+    <span>#13</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 14 - Rs.450">
+    <img src="cut3.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 450</div>
+    <span>#14</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 15 - Rs.850">
+    <img src="c1.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 850</div>
+    <span>#15</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Cut 16 - Rs.900">
+    <img src="c2.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 900</div>
+    <span>#16</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 17 - Rs.1,20 000">
+    <img src="dressing1.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,20 000</div>
+    <span>#17</span>
+  </div>
+
+
+  <div class="image-card" data-service="Dressing 18 - Rs.1,30 000">
+    <img src="dressing2.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,30 000</div>
+    <span>#18</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 19 - Rs.1,10 000">
+    <img src="dressing3.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,10 000</div>
+    <span>#19</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 20 - Rs. 1200">
+    <img src="d1.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1200</div>
+    <span>#20</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 21 - Rs. 1500">
+    <img src="d2.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1500</div>
+    <span>#21</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 22 - Rs. 2000">
+    <img src="d3.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 2000</div>
+    <span>#22</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 23 - Rs.1,2000">
+    <img src="d4.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,2000</div>
+    <span>#23</span>
+  </div>
+
+
+  <div class="image-card" data-service="Dressing 24 - Rs.1,5000">
+    <img src="d5.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,5000</div>
+    <span>#24</span>
+  </div>
+
+  <div class="image-card" data-service="menicure 25- Rs.2000">
+    <img src="manicure.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 2000</div>
+    <span>#25</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="menicure 26 - Rs.800">
+    <img src="menecure.jpg.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 800</div>
+    <span>#26</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="Pedicure 27 - Rs.1500">
+    <img src="pedecure1.jpg.jpg" alt="Pedicure" />
+    <div class="image-info">Pedicure<br>Rs. 1500</div>
+    <span>#27</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="Pedicure 28 - Rs.800">
+    <img src="pedecure2.jpg.jpg" alt="Pedicure" />
+    <div class="image-info">Pedicure<br>Rs. 800</div>
+    <span>#28</span>
+  </div>
+
+
+  <div class="image-card" data-service="Pedicure 29 - Rs.800">
+    <img src="pedicure0.jpg.jpg" alt="Pedicure" />
+    <div class="image-info">Pedicure<br>Rs. 800</div>
+    <span>#29</span>
+  </div>
+
+
+  <div class="image-card" data-service="menicure 30 - Rs.800">
+    <img src="m1.jpg.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 800</div>
+    <span>#30</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="menicure 31 - Rs.700">
+    <img src="m2.jpg.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 700</div>
+    <span>#31</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="Facial 32 - Rs.2000">
+    <img src="f1.jpg.jpg" alt="Facial" />
+    <div class="image-info">Facial<br>Rs. 2000</div>
+    <span>#32</span>
+  </div>
+
+
+  <div class="image-card" data-service="Facial 33 - Rs.2000">
+    <img src="f2.jpg.jpg" alt="Facial" />
+    <div class="image-info">Facial<br>Rs. 2000</div>
+    <span>#33</span>
+  </div>
+
+  <div class="image-card" data-service="Facial 34 - Rs.1200">
+    <img src="Facial.jpg " alt="Facial" />
+    <div class="image-info">Facial<br>Rs.1200</div>
+    <span>#34</span>
+  </div>
+
+
+</div>
+
+<!-- Selected -->
+<div id="previewContainer" style="display:none;">
+  <h2 style="color:#c71585;">Selected Services:</h2>
+  <ul id="selectedServicesList"></ul>
+  <div id="bookingTotal">Total: Rs. <span id="totalPrice">0</span></div>
+</div>
+
+<!-- Calendar -->
+<h1>Select Appointment Date</h1>
+<div class="year-selector" style="text-align:center;">
+  <label for="year">Year:</label>
+  <select id="year">
+    <option value="2025">2025</option>
+    <option value="2026">2026</option>
+    <option value="2027">2027</option>
+  </select>
+</div>
+<div class="month-container" id="months"></div>
+<div class="dates-grid" id="dates"></div>
+
+<!--  Booking Form -->
+<form id="appointmentForm"method="POST" action="http://localhost:8080/book">
+  <input type="text" id="name" placeholder="Your Name" required />
+  <input type="tel" id="phone" placeholder="Phone Number" required />
+  <input type="time" id="time" required />
+  <input type="hidden" id="date" name="date" />
+  <input type="hidden" id="services" name="services" />
+  <input type="hidden" id="total" name="total" />
+
+  <button type="submit">Confirm Appointment</button>
+</form>
+
+<footer>&copy; 2025 Diwya Salon. All rights reserved.</footer>
+
+<script>
+  // --- Service Selection ---
+  const gallery = document.getElementById('serviceGallery');
+  const previewContainer = document.getElementById('previewContainer');
+  const selectedServicesList = document.getElementById('selectedServicesList');
+  const totalPriceElement = document.getElementById('totalPrice');
+
+  let selectedServices = [];
+  let totalPrice = 0;
+
+  function extractPrice(serviceString) {
+    const match = serviceString.match(/Rs\.(\d+)/);
+    return match ? parseInt(match[1]) : 0;
+  }
+
+  
+
+    
+
+  gallery.querySelectorAll('.image-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const service = card.dataset.service;
+      const price = extractPrice(service);
+      if (!selectedServices.includes(service)) {
+        selectedServices.push(service);
+        totalPrice += price;
+        const li = document.createElement("li");
+        li.textContent = service;
+        selectedServicesList.appendChild(li);
+        totalPriceElement.textContent = totalPrice;
+        previewContainer.style.display = 'block';
+        localStorage.setItem("selectedServices", JSON.stringify(selectedServices));
+        localStorage.setItem("totalPrice", totalPrice);
+      }
+    });
+  });
+
+  // --- Calendar ---
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const maxDates = 30;
+  const bookedDates = [3, 10, 15, 21];
+  const monthsContainer = document.getElementById("months");
+  const datesContainer = document.getElementById("dates");
+  let selectedMonth = 0;
+  let selectedDate = null;
+
+  months.forEach((month, index) => {
+    const div = document.createElement("div");
+    div.className = "month";
+    div.innerText = month;
+    div.addEventListener("click", () => {
+      document.querySelectorAll('.month').forEach(m => m.classList.remove('active'));
+      div.classList.add("active");
+      selectedMonth = index;
+      renderDates();
+    });
+    monthsContainer.appendChild(div);
+  });
+
+  function renderDates() {
+    datesContainer.innerHTML = "";
+    const year = parseInt(document.getElementById("year").value);
+    const isRestricted = year === 2025 && selectedMonth <= 5;
+
+    for (let i = 1; i <= maxDates; i++) {
+      const dateBox = document.createElement("div");
+      dateBox.className = "date-box";
+      dateBox.innerText = i;
+
+      if (isRestricted || bookedDates.includes(i)) {
+        dateBox.classList.add("booked");
+      } else {
+        dateBox.addEventListener("click", () => {
+          document.querySelectorAll('.date-box').forEach(d => d.classList.remove('selected'));
+          dateBox.classList.add("selected");
+          selectedDate = i;
+        });
+      }
+
+      datesContainer.appendChild(dateBox);
+    }
+  }
+
+  document.getElementById("year").addEventListener("change", renderDates);
+  document.querySelectorAll('.month')[0].click();
+
+  // ---  Submit ---
+  document.getElementById("appointmentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (selectedDate === null) {
+      alert("Please select a valid date.");
+      return;
+    }
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const time = document.getElementById("time").value;
+    const year = document.getElementById("year").value;
+    const month = months[selectedMonth];
+    const services = localStorage.getItem("selectedServices");
+    const total = localStorage.getItem("totalPrice");
+
+    alert(` Appointment Confirmed!\n\nName: ${name}\nPhone: ${phone}\nDate: ${selectedDate} ${month} ${year}\nTime: ${time}\n\nServices:\n${services}\n\nTotal: Rs. ${total}`);
+
+    localStorage.clear();
+    location.reload();
+  });
+</script>
+
+</body>
+</html>

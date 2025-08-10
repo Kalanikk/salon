@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Salon Booking</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      color: #333;
+    }
+    .month-container, .dates-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .month {
+      background-color: #ffffff;
+      border: 2px solid #007bff;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .month:hover, .month.active {
+      background-color: #007bff;
+      color: white;
+    }
+    .date-box {
+      width: 50px;
+      height: 50px;
+      background-color: white;
+      border: 2px solid #007bff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .date-box:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    .booked {
+      background-color: #ff4d4d;
+      color: white;
+      cursor: not-allowed;
+    }
+    .selected {
+      background-color: #28a745 !important;
+      color: white;
+    }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Book Your Salon Appointment</h1>
+
+<div class="year-selector">
+  <label for="year">Select Year:</label>
+  <select id="year">
+    <option value="2025">2025</option>
+    <option value="2026">2026</option>
+    <option value="2027">2027</option>
+  </select>
+</div>
+
+<div class="month-container" id="months"></div>
+<div class="dates-grid" id="dates"></div>
+
+<!-- Preview Selected Services -->
+<div id="selectedServicesSummary" style="margin-bottom: 20px;">
+  <h2 style="color:#007bff;">Selected Services</h2>
+  <ul id="selectedList" style="padding:0; list-style: none; color: #007bff;"></ul>
+  <div style="font-weight:bold;">Total Price: Rs. <span id="bookingTotal">0</span></div>
+</div>
+
+<form id="appointmentForm">
+  <input type="text" id="name" placeholder="Your Name" required />
+  <input type="tel" id="phone" placeholder="Phone Number" required />
+  <input type="time" id="time" required />
+  <button type="submit">Submit Appointment</button>
+</form>
+
+<script>
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const maxDates = 30;
+  const bookedDates = [3, 10, 15, 21];
+
+  const monthsContainer = document.getElementById("months");
+  const datesContainer = document.getElementById("dates");
+  let selectedMonth = 0;
+  let selectedDate = null;
+
+  months.forEach((month, index) => {
+    const div = document.createElement("div");
+    div.className = "month";
+    div.innerText = month;
+    div.addEventListener("click", () => {
+      document.querySelectorAll('.month').forEach(m => m.classList.remove('active'));
+      div.classList.add("active");
+      selectedMonth = index;
+      renderDates();
+    });
+    monthsContainer.appendChild(div);
+  });
+
+  function renderDates() {
+    datesContainer.innerHTML = "";
+    const year = parseInt(document.getElementById("year").value);
+    const isRestricted = year === 2025 && selectedMonth <= 6;
+
+    for (let i = 1; i <= maxDates; i++) {
+      const dateBox = document.createElement("div");
+      dateBox.className = "date-box";
+      dateBox.innerText = i;
+
+      if (isRestricted || bookedDates.includes(i)) {
+        dateBox.classList.add("booked");
+        dateBox.title = isRestricted ? "Restricted in 2025 (Jan-Jun)" : "Already Booked";
+      } else {
+        dateBox.addEventListener("click", () => {
+          document.querySelectorAll('.date-box').forEach(d => d.classList.remove('selected'));
+          dateBox.classList.add("selected");
+          selectedDate = i;
+        });
+      }
+
+      datesContainer.appendChild(dateBox);
+    }
+  }
+
+  document.getElementById("year").addEventListener("change", renderDates);
+  document.querySelectorAll('.month')[0].click();
+
+  // Load selected services from localStorage
+  window.addEventListener("DOMContentLoaded", () => {
+    const services = JSON.parse(localStorage.getItem("selectedServices")) || [];
+    const price = parseInt(localStorage.getItem("totalPrice")) || 0;
+
+    const selectedList = document.getElementById("selectedList");
+    const bookingTotal = document.getElementById("bookingTotal");
+    const form = document.getElementById("appointmentForm");
+
+    services.forEach(service => {
+      const li = document.createElement("li");
+      li.textContent = service;
+      selectedList.appendChild(li);
+    });
+
+    bookingTotal.textContent = price;
+
+    // Hidden inputs
+    const hiddenServices = document.createElement("input");
+    hiddenServices.type = "hidden";
+    hiddenServices.name = "selectedServices";
+    hiddenServices.value = services.join(", ");
+    form.appendChild(hiddenServices);
+
+    const hiddenPrice = document.createElement("input");
+    hiddenPrice.type = "hidden";
+    hiddenPrice.name = "totalPrice";
+    hiddenPrice.value = price;
+    form.appendChild(hiddenPrice);
+  });
+
+  // Submit
+  document.getElementById("appointmentForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (selectedDate === null) {
+      alert("Please select a date.");
+      return;
+    }
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const time = document.getElementById("time").value;
+    const year = document.getElementById("year").value;
+    const month = months[selectedMonth];
+    const services = localStorage.getItem("selectedServices");
+    const total = localStorage.getItem("totalPrice");
+
+    alert(`Appointment Booked:\nName: ${name}\nPhone: ${phone}\nServices: ${services}\nDate: ${selectedDate} ${month} ${year}\nTime: ${time}\nTotal: Rs. ${total}`);
+
+    // Clear
+    localStorage.removeItem("selectedServices");
+    localStorage.removeItem("totalPrice");
+  });
+</script>
+
+</body>
+</html>

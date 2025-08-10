@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin & User Login - Diwya Salon</title>
+    <style>
+        /* Reset & base */
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('back.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            padding: 25px 15px;
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            user-select: none;
+        }
+
+        header img {
+            height: 60px;
+            margin-bottom: 10px;
+            object-fit: contain;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #222;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 50px 20px;
+            flex-wrap: wrap;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .form-box {
+            flex: 1 1 320px;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            padding: 35px 30px 40px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-box h2 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111;
+        }
+
+        .form-box img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 25px;
+            object-fit: contain;
+            filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.1));
+        }
+
+        .form-box input {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1.8px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-box input:focus {
+            border-color: #5a8dee;
+            outline: none;
+            box-shadow: 0 0 6px #5a8deeaa;
+        }
+
+        .form-box button {
+            width: 100%;
+            padding: 14px 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: #5a8dee;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-box button:hover {
+            background: #3f6fdb;
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.85);
+            color: #666;
+            font-size: 0.9rem;
+            user-select: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 720px) {
+            .container {
+                flex-direction: column;
+                padding: 40px 15px;
+            }
+            .form-box {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="Diwya Salon Logo" />
+    <h1>Welcome to Diwya Salon</h1>
+</header>
+
+<div class="container">
+
+    <!-- Admin Login -->
+    <div class="form-box">
+        <h2>Admin Login</h2>
+        <img src="admin.png.jpg" alt="Admin Icon" />
+        <form id="adminForm">
+            <input type="text" name="username" placeholder="Admin Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <!-- User Login -->
+    <div class="form-box">
+        <h2>User Login</h2>
+        <img src="user.jpg.jpg" alt="User Icon" />
+        <form id="userForm">
+            <input type="text" name="username" placeholder="User Username" required />
+            <input type="password" name="password" placeholder="Password" required />
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2025 Diwya Salon. All Rights Reserved.
+</footer>
+
+<script>
+    document.getElementById('adminForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = this.username.value.trim();
+        const password = this.password.value.trim();
+
+        if (username === "admin" && password === "admin123") {
+            window.location.href = "admin_dashboard.html";
+        } else {
+            alert("Invalid admin credentials!");
+        }
+    });
+
+    document.getElementById('userForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const username = this.username.value.trim();
+        const password = this.password.value.trim();
+
+        if (username === "user" && password === "user123") {
+            window.location.href = "c home.html";
+        } else {
+            alert("Invalid user credentials!");
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diwya Salon - Professional Beauty Services</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .gradient-bg {
+            background-image:url(back.jpg) ;
+            
+        }
+        
+        .salon-gradient {
+            background-image: url('back.jpg');
+            filter: brightness(60%);
+        }
+        
+        .glass-effect {
+            background: rgb(168, 168, 223);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgb(112, 106, 106);
+        }
+        
+        .image-zoom {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .image-zoom:hover {
+            transform: scale(1.05);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80%;
+            animation: zoom 0.6s;
+        }
+        
+        @keyframes zoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .page-section {
+            min-height: 100vh;
+            padding: 2rem 0;
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .selected-service {
+            border: 2px solid #667eea;
+            background-color: #f0f4ff;
+        }
+        
+         {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Login -->
+
+
+    <div id="loginPage" class="min-h-screen gradient-bg flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-2xl p-8 m-4 w-full max-w-md glass-effect">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Diwya Salon</h1>
+                <p class="text-gray-600">Professional Beauty Services</p>
+            </div>
+            <form id="loginForm" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                    <input type="text" id="username" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" id="password" required 
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                </div>
+                <button type="submit" 
+                        class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300">
+                    Login
+                </button>
+            </form>
+            <div class="mt-4 text-center text-sm text-gray-600">
+                Demo: admin / admin123
+            </div>
+        </div>
+    </div>
+
+    <!-- Main  -->
+    <div id="mainWebsite" class="hidden">
+        <!-- Navi -->
+        <nav class="bg-white shadow-lg fixed w-full z-50 top-0">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center">
+                        <h1 class="text-2xl font-bold text-purple-600">Diwya Salon</h1>
+                    </div>
+                    <div class="hidden md:flex space-x-8">
+                        <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 transition duration-300">Home</a>
+                        <a href="#gallery" class="nav-link text-gray-700 hover:text-purple-600 transition duration-300">Gallery</a>
+                        <a href="#appointment" class="nav-link text-gray-700 hover:text-purple-600 transition duration-300">Appointment</a>
+                        <a href="#packages" class="nav-link text-gray-700 hover:text-purple-600 transition duration-300">Packages</a>
+                        <a href="#contact" class="nav-link text-gray-700 hover:text-purple-600 transition duration-300">Contact</a>
+                        <a href="#about" class="nav-link text-gray-700 hover:text-purple-600 transition duration-300">About Us</a>
+                    </div>
+                    <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home  -->
+        <section id="home" class="page-section pt-20">
+            <div class="salon-gradient min-h-screen flex items-center">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <h1 class="text-5xl font-bold text-white">Welcome to Diwya Salon</h1>
+                    <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                        Experience luxury and beauty at its finest. Our professional team provides exceptional beauty services 
+                        tailored to enhance your natural beauty and boost your confidence.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-8 mt-12">
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <i class="fas fa-cut text-4xl text-purple-600 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2">Hair Styling</h3>
+                            <p class="text-gray-600">Professional hair cutting, coloring, and styling services</p>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <i class="fas fa-spa text-4xl text-purple-600 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2">Beauty Treatments</h3>
+                            <p class="text-gray-600">Facial treatments, skincare, and beauty enhancement</p>
+                        </div>
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <i class="fas fa-hand-sparkles text-4xl text-purple-600 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2">Nail Care</h3>
+                            <p class="text-gray-600">Manicure, pedicure, and nail art services</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery -->
+        <section id="gallery" class="page-section bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Gallery</h2>
+                    <p class="text-xl text-gray-600">Discover our beautiful work and transformations</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="gallery-item">
+                        <img src="hair colour2.jpg.jpg" 
+                             alt="Hair Styling" class="w-full h-64 object-cover rounded-lg image-zoom">
+                        <h3 class="text-center mt-2 font-semibold">Hair Styling</h3>
+                    </div>
+
+        
+
+                    <div class="gallery-item">
+                        <img src="Facial.jpg" 
+                             alt="Facial Treatment" class="w-full h-64 object-cover rounded-lg image-zoom">
+                        <h3 class="text-center mt-2 font-semibold">Facial Treatment</h3>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="manicure.jpg" 
+                             alt="Nail Art" class="w-full h-64 object-cover rounded-lg image-zoom">
+                        <h3 class="text-center mt-2 font-semibold">Nail Art</h3>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="dressing3.jpg.jpg" 
+                             alt="Bridal Makeup" class="w-full h-64 object-cover rounded-lg image-zoom">
+                        <h3 class="text-center mt-2 font-semibold">Bridal Makeup</h3>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="col2.jpg.jpg" 
+                             alt="Hair Coloring" class="w-full h-64 object-cover rounded-lg image-zoom">
+                        <h3 class="text-center mt-2 font-semibold">Hair Coloring</h3>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="f1.jpg.jpg" 
+                             alt="Spa Treatment" class="w-full h-64 object-cover rounded-lg image-zoom">
+                        <h3 class="text-center mt-2 font-semibold">Spa Treatment</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Modal -->
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImage">
+        </div>
+
+        <!-- Appointment Section -->
+        <section id="appointment" class="page-section bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Book Appointment</h2>
+                    <p class="text-xl text-gray-600">Select your preferred services and book your appointment</p>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Service Selection -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold mb-6">Select Services</h3>
+                        <div class="grid gap-4" id="serviceSelection">
+                            <div class="service-card border rounded-lg p-4" data-service="Hair Cut" data-price="2500">
+                                <img src="2.jpg" 
+                                     alt="Hair Cut" class="w-16 h-16 object-cover rounded-lg mb-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold">Hair Cut</span>
+                                    <span class="text-purple-600 font-bold">Rs. 2,500</span>
+                                </div>
+                            </div>
+                            <div class="service-card border rounded-lg p-4" data-service="Facial" data-price="3500">
+                                <img src="Facial.jpg" 
+                                     alt="Facial" class="w-16 h-16 object-cover rounded-lg mb-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold">Facial Treatment</span>
+                                    <span class="text-purple-600 font-bold">Rs. 3,500</span>
+                                </div>
+                            </div>
+                            <div class="service-card border rounded-lg p-4" data-service="Manicure" data-price="1500">
+                                <img src="manicure.jpg" 
+                                     alt="Manicure" class="w-16 h-16 object-cover rounded-lg mb-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold">Manicure & Pedicure</span>
+                                    <span class="text-purple-600 font-bold">Rs. 1,500</span>
+                                </div>
+                            </div>
+                            <div class="service-card border rounded-lg p-4" data-service="Hair Color" data-price="5000">
+                                <img src="hair colour2.jpg.jpg" 
+                                     alt="Hair Color" class="w-16 h-16 object-cover rounded-lg mb-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-semibold">Hair Coloring</span>
+                                    <span class="text-purple-600 font-bold">Rs. 5,000</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 p-4 bg-purple-50 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-lg font-semibold">Total Amount:</span>
+                                <span id="totalAmount" class="text-2xl font-bold text-purple-600">Rs. 0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Booking Form -->
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold mb-6">Booking Details</h3>
+                        <form id="appointmentForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                <input type="text" id="clientName" required 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="clientPhone" required 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="email" id="clientEmail" required 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Date</label>
+                                <input type="date" id="appointmentDate" required 
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Preferred Time</label>
+                                <select id="appointmentTime" required 
+                                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <option value="">Select Time</option>
+                                    <option value="09:00">09:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="11:00">11:00 AM</option>
+                                    <option value="12:00">12:00 PM</option>
+                                    <option value="14:00">02:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                    <option value="16:00">04:00 PM</option>
+                                    <option value="17:00">05:00 PM</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Selected Services</label>
+                                <textarea id="selectedServices" readonly 
+                                          class="w-full px-3 py-2 border border-gray-300 rounded-md bg-gray-50" rows="3"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Special Requests</label>
+                                <textarea id="specialRequests" 
+                                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500" rows="3"></textarea>
+                            </div>
+                            <button type="submit" 
+                                    class="w-full bg-purple-600 text-white py-3 px-4 rounded-md hover:bg-purple-700 transition duration-300">
+                                Book Appointment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Appointments  -->
+                <div class="mt-12 bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-6">Manage Appointments</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-2 text-left">Name</th>
+                                    <th class="px-4 py-2 text-left">Phone</th>
+                                    <th class="px-4 py-2 text-left">Date</th>
+                                    <th class="px-4 py-2 text-left">Time</th>
+                                    <th class="px-4 py-2 text-left">Services</th>
+                                    <th class="px-4 py-2 text-left">Total</th>
+                                    <th class="px-4 py-2 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="appointmentsTable">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Packages Section -->
+        <section id="packages" class="page-section bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Packages</h2>
+                    <p class="text-xl text-gray-600">Special package deals for complete beauty transformation</p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-gradient-to-br from-purple-400 to-pink-400 rounded-lg shadow-lg p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-4">Basic Package</h3>
+                        <div class="text-4xl font-bold mb-4">Rs. 8,000</div>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check mr-2"></i>Hair Cut & Wash</li>
+                            <li><i class="fas fa-check mr-2"></i>Basic Facial</li>
+                            <li><i class="fas fa-check mr-2"></i>Eyebrow Threading</li>
+                            <li><i class="fas fa-check mr-2"></i>Basic Manicure</li>
+                        </ul>
+                        <button class="w-full bg-white text-purple-600 py-2 px-4 rounded-md hover:bg-gray-100 transition duration-300 font-semibold">
+                            Choose Package
+                        </button>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-pink-400 to-red-400 rounded-lg shadow-lg p-6 text-white transform scale-105">
+                        <div class="text-center mb-4">
+                            <span class="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-bold">POPULAR</span>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Premium Package</h3>
+                        <div class="text-4xl font-bold mb-4">Rs. 15,000</div>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check mr-2"></i>Hair Cut, Wash & Style</li>
+                            <li><i class="fas fa-check mr-2"></i>Deluxe Facial Treatment</li>
+                            <li><i class="fas fa-check mr-2"></i>Full Body Massage</li>
+                            <li><i class="fas fa-check mr-2"></i>Manicure & Pedicure</li>
+                            <li><i class="fas fa-check mr-2"></i>Makeup Application</li>
+                        </ul>
+                        <button class="w-full bg-white text-pink-600 py-2 px-4 rounded-md hover:bg-gray-100 transition duration-300 font-semibold">
+                            Choose Package
+                        </button>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-indigo-400 to-purple-400 rounded-lg shadow-lg p-6 text-white">
+                        <h3 class="text-2xl font-bold mb-4">Bridal Package</h3>
+                        <div class="text-4xl font-bold mb-4">Rs. 25,000</div>
+                        <ul class="space-y-2 mb-6">
+                            <li><i class="fas fa-check mr-2"></i>Bridal Hair Styling</li>
+                            <li><i class="fas fa-check mr-2"></i>Bridal Makeup</li>
+                            <li><i class="fas fa-check mr-2"></i>Pre-Bridal Facials (3 sessions)</li>
+                            <li><i class="fas fa-check mr-2"></i>Full Body Treatments</li>
+                            <li><i class="fas fa-check mr-2"></i>Henna Application</li>
+                            <li><i class="fas fa-check mr-2"></i>Bridal Consultation</li>
+                        </ul>
+                        <button class="w-full bg-white text-indigo-600 py-2 px-4 rounded-md hover:bg-gray-100 transition duration-300 font-semibold">
+                            Choose Package
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Package Management -->
+                <div class="mt-12 bg-white rounded-lg shadow-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-6">Package Management</h3>
+                    <form id="packageForm" class="grid md:grid-cols-2 gap-4 mb-6">
+                        <input type="text" id="packageName" placeholder="Package Name" required 
+                               class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <input type="number" id="packagePrice" placeholder="Price" required 
+                               class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <textarea id="packageDescription" placeholder="Package Description" required 
+                                  class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 md:col-span-2" rows="3"></textarea>
+                        <button type="submit" 
+                                class="bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300 md:col-span-2">
+                            Add Package
+                        </button>
+                    </form>
+                    <div class="overflow-x-auto">
+                        <table class="w-full table-auto">
+                            <thead>
+                                <tr class="bg-gray-100">
+                                    <th class="px-4 py-2 text-left">Package Name</th>
+                                    <th class="px-4 py-2 text-left">Price</th>
+                                    <th class="px-4 py-2 text-left">Description</th>
+                                    <th class="px-4 py-2 text-left">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="packagesTable">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="page-section bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">Contact Us</h2>
+                    <p class="text-xl text-gray-600">Get in touch with us for appointments and inquiries</p>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-purple-600 text-xl mr-4"></i>
+                                <div>
+                                    <h4 class="font-semibold">Email</h4>
+                                    <p class="text-gray-600"><a href="geethanjalisithara044@gmail.com" class="__cf_email__" data-cfemail="600705051408010e0a010c091309140801120150545420070d01090c4e030f0d">[geethanjalisithara044@gmail.com]</a></p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-purple-600 text-xl mr-4"></i>
+                                <div>
+                                    <h4 class="font-semibold">Phone</h4>
+                                    <p class="text-gray-600">0710854456</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-purple-600 text-xl mr-4 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold">Address</h4>
+                                    <p class="text-gray-600">Diwya Salon<br>Main Street, Colombo<br>Sri Lanka</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-purple-600 text-xl mr-4"></i>
+                                <div>
+                                    <h4 class="font-semibold">Working Hours</h4>
+                                    <p class="text-gray-600">Monday - Saturday: 9:00 AM - 7:00 PM<br>Sunday: Closed</p>
+                                </div>
+                            </div>
+                        
+                        
+                        <div class="mt-8">
+                            <h4 class="font-semibold mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                               
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Location</h3>
+                        <div class="w-full h-64 bg-gray-200 rounded-lg flex items-center justify-center">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.90269656143!2d79.84810731477447!3d6.902209094995595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25963120b1509%3A0x2db2c18a68712863!2sColombo%2C%20Sri%20Lanka!5e0!3m2!1sen!2sus!4v1640123456789!5m2!1sen!2sus"
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade" class="rounded-lg">
+                            </iframe>
+                        </div>
+                        
+                        <form class="mt-6 space-y-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <input type="text" placeholder="Your Name" 
+                                       class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                <input type="email" placeholder="Your Email" 
+                                       class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            <input type="text" placeholder="Subject" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            <textarea placeholder="Your Message" rows="4" 
+                                      class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>
+                            <button type="submit" 
+                                    class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-300">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="page-section bg-white">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-800 mb-4">About Us</h2>
+                    <p class="text-xl text-gray-600">Learn more about Diwya Salon and our commitment to beauty</p>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-800 mb-6">Your Beauty, Our Passion</h3>
+                        <p class="text-gray-600 mb-4">
+                            Welcome to Diwya Salon, where beauty meets excellence. Since our establishment, we have been dedicated 
+                            to providing top-quality beauty services that enhance your natural beauty and boost your confidence.
+                        </p>
+                       
+                        <p class="text-gray-600 mb-6">
+                            At Diwya Salon, we use only premium products and state-of-the-art equipment to deliver exceptional 
+                            results. Our commitment to hygiene, safety, and customer satisfaction is unwavering.
+                        </p>
+                        
+                        
+                            
+                          
+                        
+                    </div>
+                    
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Salon Interior" class="w-full h-96 object-cover rounded-lg shadow-lg">
+                        <div class="absolute inset-0 bg-purple-600 bg-opacity-20 rounded-lg"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-16">
+                    <h3 class="text-3xl font-bold text-gray-800 text-center mb-8">Our Team</h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <img src="hair speacilist.jpg" 
+                                 alt="Hair Stylist" class="w-32 h-32 object-cover rounded-full mx-auto mb-4">
+                            <h4 class="text-xl font-semibold mb-2">Sara</h4>
+                            <p class="text-purple-600 mb-2">Senior Hair Stylist</p>
+                            <p class="text-gray-600 text-sm">10+ years experience in cutting-edge hair styling and coloring techniques.</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="beauty therapist.jpg" 
+                                 alt="Beauty Therapist" class="w-32 h-32 object-cover rounded-full mx-auto mb-4">
+                            <h4 class="text-xl font-semibold mb-2">thara serin</h4>
+                            <p class="text-purple-600 mb-2">Beauty Therapist</p>
+                            <p class="text-gray-600 text-sm">Specialist in facial treatments and skincare with 8+ years experience.</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="nail artist.jpg" 
+                                 alt="Nail Technician" class="w-32 h-32 object-cover rounded-full mx-auto mb-4">
+                            <h4 class="text-xl font-semibold mb-2">Emily Davis</h4>
+                            <p class="text-purple-600 mb-2">Nail Art Specialist</p>
+                            <p class="text-gray-600 text-sm">Creative nail artist with expertise in modern nail art and design.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-800 text-white py-8">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">Diwya Salon</h3>
+                        <p class="text-gray-400">Your trusted partner for all beauty needs. Professional services with a personal touch.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Services</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li>Hair Styling</li>
+                            <li>Beauty Treatments</li>
+                            <li>Nail Care</li>
+                            <li>Bridal Packages</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Quick Links</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="#home" class="hover:text-white">Home</a></li>
+                            <li><a href="#gallery" class="hover:text-white">Gallery</a></li>
+                            <li><a href="#appointment" class="hover:text-white">Appointment</a></li>
+                            <li><a href="#contact" class="hover:text-white">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-4">Contact Info</h4>
+                        <ul class="space-y-2 text-gray-400">
+                            <li><a href="geethanjalisithara044@gmail.com" class="__cf_email__" data-cfemail="98fffdfdecf0f9f6f2f9f4f1ebf1ecf0f9eaf9a8acacd8fff5f9f1f4b6fbf7f5">[geethanjalisithara044@gmail.com]</a></li>
+                            <li>0710854456</li>
+                            <li>Colombo, Sri Lanka</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                    <p>&copy; 2024 Diwya Salon. All rights reserved. Created by Sithara </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Initialize data storage
+        let appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+        let packages = JSON.parse(localStorage.getItem('packages')) || [];
+        let selectedServices = [];
+        let totalAmount = 0;
+
+        // Login functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                document.getElementById('loginPage').classList.add('hidden');
+                document.getElementById('mainWebsite').classList.remove('hidden');
+                loadAppointments();
+                loadPackages();
+            } else {
+                alert('Invalid credentials! Use admin/admin123');
+            }
+        });
+
+        // Logout functionality
+        function logout() {
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('mainWebsite').classList.add('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Gallery image zoom functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+
+        document.querySelectorAll('.image-zoom').forEach(img => {
+            img.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+            });
+        });
+
+        document.querySelector('.close').addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Service selection for appointments
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const service = this.getAttribute('data-service');
+                const price = parseInt(this.getAttribute('data-price'));
+                
+                if (this.classList.contains('selected-service')) {
+                    // Remove service
+                    this.classList.remove('selected-service');
+                    const index = selectedServices.findIndex(s => s.name === service);
+                    if (index > -1) {
+                        selectedServices.splice(index, 1);
+                        totalAmount -= price;
+                    }
+                } else {
+                    // Add service
+                    this.classList.add('selected-service');
+                    selectedServices.push({ name: service, price: price });
+                    totalAmount += price;
+                }
+                
+                updateServiceDisplay();
+            });
+        });
+
+        function updateServiceDisplay() {
+            document.getElementById('totalAmount').textContent = `Rs. ${totalAmount.toLocaleString()}`;
+            document.getElementById('selectedServices').value = selectedServices.map(s => `${s.name} - Rs. ${s.price}`).join('\n');
+        }
+
+        // Appointment form submission
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (selectedServices.length === 0) {
+                alert('Please select at least one service!');
+                return;
+            }
+            
+            const appointment = {
+                id: Date.now(),
+                name: document.getElementById('clientName').value,
+                phone: document.getElementById('clientPhone').value,
+                email: document.getElementById('clientEmail').value,
+                date: document.getElementById('appointmentDate').value,
+                time: document.getElementById('appointmentTime').value,
+                services: [...selectedServices],
+                total: totalAmount,
+                specialRequests: document.getElementById('specialRequests').value
+            };
+            
+            appointments.push(appointment);
+            localStorage.setItem('appointments', JSON.stringify(appointments));
+            
+            alert('Appointment booked successfully!');
+            this.reset();
+            selectedServices = [];
+            totalAmount = 0;
+            updateServiceDisplay();
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('selected-service');
+            });
+            
+            loadAppointments();
+        });
+
+        // Load and display appointments
+        function loadAppointments() {
+            const tbody = document.getElementById('appointmentsTable');
+            tbody.innerHTML = '';
+            
+            appointments.forEach(appointment => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td class="px-4 py-2">${appointment.name}</td>
+                    <td class="px-4 py-2">${appointment.phone}</td>
+                    <td class="px-4 py-2">${appointment.date}</td>
+                    <td class="px-4 py-2">${appointment.time}</td>
+                    <td class="px-4 py-2">${appointment.services.map(s => s.name).join(', ')}</td>
+                    <td class="px-4 py-2">Rs. ${appointment.total.toLocaleString()}</td>
+                    <td class="px-4 py-2">
+                        <button onclick="editAppointment(${appointment.id})" class="bg-blue-500 text-white px-2 py-1 rounded mr-2 hover:bg-blue-600">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deleteAppointment(${appointment.id})" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+            });
+        }
+
+        // Delete appointment
+        function deleteAppointment(id) {
+            if (confirm('Are you sure you want to delete this appointment?')) {
+                appointments = appointments.filter(a => a.id !== id);
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                loadAppointments();
+            }
+        }
+
+        // Edit appointment (simplified)
+        function editAppointment(id) {
+            const appointment = appointments.find(a => a.id === id);
+            if (appointment) {
+                // Fill form with existing data
+                document.getElementById('clientName').value = appointment.name;
+                document.getElementById('clientPhone').value = appointment.phone;
+                document.getElementById('clientEmail').value = appointment.email;
+                document.getElementById('appointmentDate').value = appointment.date;
+                document.getElementById('appointmentTime').value = appointment.time;
+                document.getElementById('specialRequests').value = appointment.specialRequests || '';
+                
+                // Remove 
+                deleteAppointment(id);
+                
+                // Scroll  form
+                document.getElementById('appointment').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Package management
+        document.getElementById('packageForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const package = {
+                id: Date.now(),
+                name: document.getElementById('packageName').value,
+                price: parseInt(document.getElementById('packagePrice').value),
+                description: document.getElementById('packageDescription').value
+            };
+            
+            packages.push(package);
+            localStorage.setItem('packages', JSON.stringify(packages));
+            
+            this.reset();
+            loadPackages();
+            alert('Package added successfully!');
+        });
+
+        // display packages
+        function loadPackages() {
+            const tbody = document.getElementById('packagesTable');
+            tbody.innerHTML = '';
+            
+            packages.forEach(package => {
+                const row = tbody.insertRow();
+                row.innerHTML = `
+                    <td class="px-4 py-2">${package.name}</td>
+                    <td class="px-4 py-2">Rs. ${package.price.toLocaleString()}</td>
+                    <td class="px-4 py-2">${package.description}</td>
+                    <td class="px-4 py-2">
+                        <button onclick="editPackage(${package.id})" class="bg-blue-500 text-white px-2 py-1 rounded mr-2 hover:bg-blue-600">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deletePackage(${package.id})" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+            });
+        }
+
+        // Delete package
+        function deletePackage(id) {
+            if (confirm('Are you sure you want to delete this package?')) {
+                packages = packages.filter(p => p.id !== id);
+                localStorage.setItem('packages', JSON.stringify(packages));
+                loadPackages();
+            }
+        }
+
+        // Edit pack
+        function editPackage(id) {
+            const package = packages.find(p => p.id === id);
+            if (package) {
+                document.getElementById('packageName').value = package.name;
+                document.getElementById('packagePrice').value = package.price;
+                document.getElementById('packageDescription').value = package.description;
+                
+                deletePackage(id);
+            }
+        }
+
+        // Set  date 
+        document.getElementById('appointmentDate').min = new Date().toISOString().split('T')[0];
+
+        //  the application
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial data
+            loadAppointments();
+            loadPackages();
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"96c4e325af2ea02d","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"version":"2025.7.0","token":"4edd5f8ec12a48cfa682ab8261b80a79"}' crossorigin="anonymous"></script>
+</body>
+</html>
+   

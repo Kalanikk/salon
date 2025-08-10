@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diwya Salon - Welcome</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fdf1f7;
+            color: #333;
+        }
+
+        header {
+            background-color: #c71585;
+            color: white;
+            text-align: center;
+            padding: 25px 10px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .intro-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: auto;
+            gap: 30px;
+        }
+
+        .intro-text {
+            flex: 1 1 400px;
+            max-width: 600px;
+        }
+
+        .intro-text h2 {
+            font-size: 32px;
+            color: #c71585;
+            margin-bottom: 20px;
+        }
+
+        .intro-text p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .intro-text a {
+            text-decoration: none;
+            background-color: #c71585;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .intro-text a:hover {
+            background-color: #a0136a;
+        }
+
+        .intro-image {
+            flex: 1 1 300px;
+            max-width: 500px;
+        }
+
+        .intro-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .intro-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            .intro-text, .intro-image {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>Welcome to Diwya</header>
+
+<section class="intro-section">
+    <div class="intro-text">
+        <h2>Your Premier Salon Experience</h2>
+        <p>
+            Experience the next level of salon services at Diwya. We offer a unique platform that allows you to explore stunning images, book appointments effortlessly, and make secure online payments – all from the comfort of your home. Our user-friendly interface ensures that your journey with us is seamless, while our dedicated team provides exceptional services tailored to your needs.
+        </p>
+        <a href="#contact">Get in touch</a>
+    </div>
+    <div class="intro-image">
+        <img src="back.jpg" alt="Diwya Salon Interior" />
+    </div>
+</section>
+
+</body>
+</html>

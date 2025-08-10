@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Logout</title>
+  <script>
+    function logout() {
+
+      sessionStorage.clear();
+      localStorage.clear();
+
+
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+
+      window.location.href = "login.html";
+    }
+  </script>
+</head>
+<body onload="logout()">
+<h2>Logging out...</h2>
+</body>
+</html>

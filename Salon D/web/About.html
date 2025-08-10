@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diwya Salon - About & Services</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #fffafc, #f7f1ff);
+      color: #333;
+    }
+
+    header {
+      background-color: #7b2cbf;
+      color: white;
+      text-align: center;
+      padding: 30px 0;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 3em;
+    }
+
+    .about-section, .services-section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .about-section h2,
+    .services-section h1 {
+      color: #7b2cbf;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .about-section p {
+      max-width: 800px;
+      margin: 0 auto 15px;
+      font-size: 1.1em;
+    }
+
+    .team h3 {
+      font-size: 1.5em;
+      margin-top: 30px;
+      color: #5a189a;
+    }
+
+    .team ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    .team li {
+      margin-bottom: 8px;
+      font-size: 1.05em;
+    }
+
+    .feedback-form {
+      margin-top: 40px;
+    }
+
+    .feedback-form input,
+    .feedback-form textarea {
+      width: 300px;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .feedback-form button {
+      padding: 10px 20px;
+      background-color: #7b2cbf;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .feedback-form button:hover {
+      background-color: #5a189a;
+    }
+
+    .services-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .service-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 280px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .service-card h2 {
+      font-size: 1.6em;
+      color: #5a189a;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 1em;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .rating i {
+      color: #ffb703;
+      font-size: 1.2em;
+    }
+
+    .nav-buttons {
+      margin-top: 50px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .back-button {
+      padding: 12px 24px;
+      background-color: #bf2c95;
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #9b1f74;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #7b2cbf;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Diwya Salon</h1>
+</header>
+
+<section class="about-section">
+  <h2>About Us</h2>
+  <p>Welcome to Diwya Salon! We are dedicated to bringing you the best in beauty, style, and self-care.
+    Our experienced stylists and beauticians are passionate about helping you look and feel your best.</p>
+  <p>With over 10 years in the industry, we offer personalized services ranging
+    from haircuts and coloring to spa treatments and bridal packages.</p>
+
+  <div class="team">
+    <h3>Our Team</h3>
+    <ul>
+      <li><strong>Sara Perera</strong> - Hair Stylist & Dressing</li>
+      <li><strong>Amali Fernando</strong> - Beautician</li>
+      <li><strong>Ruwan De Silva</strong> - Skin Care Expert</li>
+    </ul>
+  </div>
+
+  <div class="feedback-form">
+    <h3>Send Us Your Feedback</h3>
+    <form id="feedbackForm">
+      <input type="text" id="name" placeholder="Your Name" required><br>
+      <input type="email" id="email" placeholder="Your Email" required><br>
+      <textarea id="message" placeholder="Your Message" rows="4" required></textarea><br>
+      <button type="button" onclick="submitFeedback()">Send</button>
+    </form>
+    <p id="responseMsg"></p>
+  </div>
+</section>
+
+<section class="services-section">
+
+  <div class="services-container">
+
+    <div class="service-card">
+      <img src="Haircut.jpg.jpg" alt="Haircut">
+      <h2>Haircut</h2>
+      <p>Professional haircut with styling</p>
+      <div class="rating">
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="facial.jpg" alt="Facial">
+      <h2>Facial</h2>
+      <p>Glow up with our deep-clean facial</p>
+      <div class="rating">
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star"></i>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="dressing1.jpg.jpg" alt="Dressing">
+      <h2>Dressing</h2>
+      <p>Perfect & Beautiful Dressing</p>
+      <div class="rating">
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star"></i>
+      </div>
+    </div>
+
+    <div class="service-card">
+      <img src="m1.jpg.jpg" alt="Manicure & Pedicure">
+      <h2>Manicure & Pedicure</h2>
+      <p>Perfect style</p>
+      <div class="rating">
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+        <i class="fas fa-star checked"></i>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="nav-buttons">
+  <a href="index.html" class="back-button">← Back to Home</a>
+  <a href="z.html" class="back-button">Go to Next Page →</a>
+</div>
+
+<footer>
+  <p>&copy; 2025 Diwya Salon. All rights reserved.</p>
+</footer>
+
+<script>
+  function submitFeedback() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    if (name && email && message) {
+      document.getElementById('responseMsg').textContent = 'Thank you for your feedback!';
+      document.getElementById('feedbackForm').reset();
+    } else {
+      document.getElementById('responseMsg').textContent = 'Please fill out all fields.';
+    }
+  }
+</script>
+
+</body>
+</html>

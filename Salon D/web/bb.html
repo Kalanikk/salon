@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DIWYA Salon</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #f2f2f2;
+    }
+
+    /* Header & Navbar */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: bold;
+      color: #111;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      position: relative;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #2e8b57;
+    }
+
+    nav a.active::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -5px;
+      width: 100%;
+      height: 2px;
+      background-color: #2e8b57;
+    }
+
+    /* Main Section */
+    .highlight-section {
+      padding: 60px 40px;
+      background: linear-gradient(to right, #e3f3df, #f9f9f9);
+    }
+
+    .highlight-section p {
+      color: #666;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .highlight-section h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .card-grid {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 30%;
+      padding: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .card h3 {
+      margin-top: 15px;
+      color: #2e8b57;
+    }
+
+    .card p {
+      color: #555;
+    }
+
+    .card a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #006400;
+      font-weight: bold;
+    }
+
+    @media screen and (max-width: 768px) {
+      .card {
+        width: 100%;
+      }
+
+      nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>DIWYA</h1>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="About.html">About</a>
+    <a href="te.html">Services</a>
+    <a href="z.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<section class="highlight-section">
+  <p>TRANSFORMATIVE BEAUTY EXPERIENCES</p>
+  <h2>Elevate your style with us</h2>
+
+  <div class="card-grid">
+    <div class="card">
+      <img src="image1.jpg" alt="Appointment">
+      <h3>Online appointment booking</h3>
+      <p>Conveniently book your salon visits online.</p>
+      <a href="booking.html">Book Now →</a>
+    </div>
+
+    <div class="card">
+      <img src="image2.jpg" alt="Review Selection">
+      <h3>Image selection for reviews</h3>
+      <p>Easily choose images to enhance your reviews.</p>
+      <a href="z.html">Select Images →</a>
+    </div>
+
+    <div class="card">
+      <img src="image3.jpg" alt="Admin Dashboard">
+      <h3>Admin dashboard</h3>
+      <p>Manage appointments and customer interactions efficiently.</p>
+      <a href="admin dashboard.html">Go to Dashboard →</a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
+

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diwya Salon - Booking & Gallery</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      background: #fdf1f7;
+    }
+    header {
+      background-color: #c71585;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 24px;
+    }
+    h1 {
+      text-align: center;
+      color: #c71585;
+    }
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .image-card {
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease;
+      width: 200px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .image-card:hover {
+      transform: scale(1.05);
+    }
+    .image-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+    }
+    .image-info {
+      padding: 10px;
+      font-weight: bold;
+      color: #c71585;
+    }
+    .bookingForm {
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 500px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .bookingForm input {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    #qrModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .qr-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #c71585;
+      color: white;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>Diwya Salon - Gallery & Booking</header>
+
+<h1>💇 Services Gallery</h1>
+<div class="gallery" id="serviceGallery">
+
+  <div class="image-card" data-service="Hair color 1 - Rs.1500">
+    <img src="hair colour1.jpg.jpg" alt="Hair color" />
+    <div class="image-info">Hair Colour<br>Rs. 1500</div>
+    <span>#1</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Color 2 - Rs.1200">
+    <img src="hair colour2.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Color<br>Rs. 1200</div>
+    <span>#2</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Color 3 - Rs.2500">
+    <img src="hair colour3.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Color<br>Rs. 2500</div>
+    <span>#3</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 4 - Rs.2500">
+    <img src="hair cut1.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 2500</div>
+    <span>#4</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Cut 5 - Rs.1800">
+    <img src="hair cut 2.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1800</div>
+    <span>#5</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 6 - Rs.800">
+    <img src="hair cutd.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 800</div>
+    <span>#6</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 7 - Rs.1200">
+    <img src="hair.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1200</div>
+    <span>#7</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 8 - Rs.1700">
+    <img src="Haircut.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1700</div>
+    <span>#8</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 9 - Rs.1200">
+    <img src="6.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 1200</div>
+    <span>#9</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Color 10 - Rs.1500">
+    <img src="co1.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Colour<br>Rs. 1500</div>
+    <span>#10</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Color 11 - Rs.1800">
+    <img src="col2.jpg.jpg" alt="Hair Color" />
+    <div class="image-info">Hair Colour<br>Rs. 1800</div>
+    <span>#11</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 12 - Rs.2000">
+    <img src="cut1,jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 2000</div>
+    <span>#12</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 13 - Rs.500">
+    <img src="cut2.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 500</div>
+    <span>#13</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 14 - Rs.450">
+    <img src="cut3.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 450</div>
+    <span>#14</span>
+  </div>
+
+  <div class="image-card" data-service="Hair Cut 15 - Rs.850">
+    <img src="c1.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 850</div>
+    <span>#15</span>
+  </div>
+
+
+  <div class="image-card" data-service="Hair Cut 16 - Rs.900">
+    <img src="c2.jpg.jpg" alt="Hair Cut" />
+    <div class="image-info">Hair Cut<br>Rs. 900</div>
+    <span>#16</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 17 - Rs.1,20 000">
+    <img src="dressing1.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,20 000</div>
+    <span>#17</span>
+  </div>
+
+
+  <div class="image-card" data-service="Dressing 18 - Rs.1,30 000">
+    <img src="dressing2.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,30 000</div>
+    <span>#18</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 19 - Rs.1,10 000">
+    <img src="dressing3.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,10 000</div>
+    <span>#19</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 20 - Rs. 1200">
+    <img src="d1.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1200</div>
+    <span>#20</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 21 - Rs. 1500">
+    <img src="d2.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1500</div>
+    <span>#21</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 22 - Rs. 2000">
+    <img src="d3.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 2000</div>
+    <span>#22</span>
+  </div>
+
+  <div class="image-card" data-service="Dressing 23 - Rs.1,2000">
+    <img src="d4.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,2000</div>
+    <span>#23</span>
+  </div>
+
+
+  <div class="image-card" data-service="Dressing 24 - Rs.1,5000">
+    <img src="d5.jpg.jpg" alt="Dressing" />
+    <div class="image-info">Dressing<br>Rs. 1,5000</div>
+    <span>#24</span>
+  </div>
+
+  <div class="image-card" data-service="menicure 25- Rs.2000">
+    <img src="manicure.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 2000</div>
+    <span>#25</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="menicure 26 - Rs.800">
+    <img src="menecure.jpg.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 800</div>
+    <span>#26</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="Pedicure 27 - Rs.1500">
+    <img src="pedecure1.jpg.jpg" alt="Pedicure" />
+    <div class="image-info">Pedicure<br>Rs. 1500</div>
+    <span>#27</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="Pedicure 28 - Rs.800">
+    <img src="pedecure2.jpg.jpg" alt="Pedicure" />
+    <div class="image-info">Pedicure<br>Rs. 800</div>
+    <span>#28</span>
+  </div>
+
+
+  <div class="image-card" data-service="Pedicure 29 - Rs.800">
+    <img src="pedicure0.jpg.jpg" alt="Pedicure" />
+    <div class="image-info">Pedicure<br>Rs. 800</div>
+    <span>#29</span>
+  </div>
+
+
+  <div class="image-card" data-service="menicure 30 - Rs.800">
+    <img src="m1.jpg.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 800</div>
+    <span>#30</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="menicure 31 - Rs.700">
+    <img src="m2.jpg.jpg" alt="Menicure" />
+    <div class="image-info">menicure<br>Rs. 700</div>
+    <span>#31</span>
+  </div>
+
+
+
+  <div class="image-card" data-service="Facial 32 - Rs.2000">
+    <img src="f1.jpg.jpg" alt="Facial" />
+    <div class="image-info">Facial<br>Rs. 2000</div>
+    <span>#32</span>
+  </div>
+
+
+  <div class="image-card" data-service="Facial 33 - Rs.2000">
+    <img src="f2.jpg.jpg" alt="Facial" />
+    <div class="image-info">Facial<br>Rs. 2000</div>
+    <span>#33</span>
+  </div>
+
+  <div class="image-card" data-service="Facial 34 - Rs.1200">
+    <img src="Facial.jpg " alt="Facial" />
+    <div class="image-info">Facial<br>Rs.1200</div>
+    <span>#34</span>
+  </div>
+
+
+
+  <div id="formContainer"></div>
+
+
+  <div id="qrModal">
+    <div class="qr-content">
+      <h3>📱 Scan to Send via WhatsApp</h3>
+      <canvas id="qrcodeCanvas"></canvas><br>
+      <button onclick="closeQR()">Close</button>
+    </div>
+  </div>
+
+  <footer>&copy; 2025 Diwya Salon. All rights reserved.</footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <script>
+    const bookedSlots = [];
+    let activeForm = null;
+
+    const formHTML = `
+    <div class="bookingForm">
+      <h2>📅 Book Appointment</h2>
+      <form>
+        <label>Service</label>
+        <form action="http://localhost:8080/submitBooking" method="POST">
+        <input type="text" class="serviceName" readonly />
+        <label>Base Price (LKR)</label>
+        <input type="text" class="basePrice" readonly />
+        <label>Customer Count</label>
+        <input type="number" class="customerCount" value="1" min="1" required />
+        <label>Total Price (LKR)</label>
+        <input type="text" class="totalPrice" readonly />
+        <label>Date</label>
+        <input type="date" class="appointmentDate" required />
+        <label>Time</label>
+        <input type="time" class="appointmentTime" required />
+        <label>Full Name</label>
+        <input type="text" class="customerName" required />
+        <label>Phone Number</label>
+        <input type="text" class="phoneNumber" required />
+        <button type="button" class="generateQR">Generate WhatsApp QR</button>
+      </form>
+    </div>`;
+
+    document.querySelectorAll('.image-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const [name, price] = card.dataset.service.split(' - Rs.');
+
+        if (activeForm) activeForm.remove();
+
+        const container = document.createElement('div');
+        container.innerHTML = formHTML;
+        document.getElementById('formContainer').appendChild(container);
+        activeForm = container;
+
+        const serviceInput = container.querySelector('.serviceName');
+        const basePriceInput = container.querySelector('.basePrice');
+        const countInput = container.querySelector('.customerCount');
+        const totalInput = container.querySelector('.totalPrice');
+        const dateInput = container.querySelector('.appointmentDate');
+        const timeInput = container.querySelector('.appointmentTime');
+        const nameInput = container.querySelector('.customerName');
+        const phoneInput = container.querySelector('.phoneNumber');
+        const qrBtn = container.querySelector('.generateQR');
+
+        serviceInput.value = name.trim();
+        basePriceInput.value = price.trim();
+        totalInput.value = price.trim();
+
+        countInput.addEventListener('input', () => {
+          const total = parseFloat(basePriceInput.value) * parseInt(countInput.value || 1);
+          totalInput.value = total;
+        });
+
+        qrBtn.addEventListener('click', () => {
+          const sName = serviceInput.value;
+          const base = basePriceInput.value;
+          const count = countInput.value;
+          const total = totalInput.value;
+          const date = dateInput.value;
+          const time = timeInput.value;
+          const cname = nameInput.value;
+          const phone = phoneInput.value;
+
+          const key = `${date}_${time}`;
+          if (bookedSlots.includes(key)) {
+            alert("This time slot is already booked. Please choose another.");
+            return;
+          }
+
+
+
+          bookedSlots.push(key);
+
+          const msg = `Hello Diwya Salon,%0AI would like to book:%0AService: ${sName}%0ACustomers: ${count}%0ATotal Price: Rs.${total}%0ADate: ${date}%0ATime: ${time}%0AName: ${cname}%0APhone: ${phone}`;
+          const url = `https://wa.me/94710854456?text=${msg}`;
+
+          QRCode.toCanvas(document.getElementById('qrcodeCanvas'), url, err => {
+            if (err) console.error(err);
+            document.getElementById('qrModal').style.display = 'flex';
+          });
+        });
+      });
+    });
+
+    function closeQR() {
+      document.getElementById('qrModal').style.display = 'none';
+    }
+  </script>
+
+
+</body>
+</html>

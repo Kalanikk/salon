@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diwya Salon</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #c71585;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    nav {
+      background-color: #fdf1f7;
+      text-align: center;
+      padding: 10px 0;
+    }
+    nav a {
+      text-decoration: none;
+      color: #c71585;
+      margin: 0 15px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #e91e63;
+    }
+    .intro-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+      background: linear-gradient(to right, #fff, #fdf1f7);
+    }
+    .intro-text {
+      max-width: 500px;
+      padding: 20px;
+    }
+    .intro-text h1 {
+      color: #c71585;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+    .intro-text p {
+      font-size: 18px;
+      color: #444;
+      line-height: 1.6;
+    }
+    .intro-image {
+      max-width: 500px;
+      padding: 20px;
+    }
+    .intro-image img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #c71585;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #e91e63;
+    }
+
+    @media (max-width: 768px) {
+      .intro-section {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>Diwya Salon</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="booking.html">Book Now</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section class="intro-section" id="about">
+  <div class="intro-text">
+    <h1>Welcome to Diwya</h1>
+    <p>Experience the next level of salon services at Diwya. Explore stunning styles, book appointments effortlessly, and enjoy secure online experiences — all from the comfort of your home. Our dedicated team is ready to help you shine.</p>
+    <a href="gallery.html" class="btn">Explore Services</a>
+  </div>
+  <div class="intro-image">
+    <img src="diwya-welcome.jpg" alt="Salon Interior" />
+  </div>
+</section>
+
+</body>
+</html>
